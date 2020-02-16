@@ -453,7 +453,7 @@ export const App = connect(
         settings,
         tagBucket,
         isSmallScreen,
-        ui: { showNoteInfo },
+        ui: { showNavigation, showNoteInfo },
       } = this.props;
       const isMacApp = isElectronMac();
 
@@ -466,7 +466,7 @@ export const App = connect(
 
       const mainClasses = classNames('simplenote-app', {
         'note-info-open': showNoteInfo,
-        'navigation-open': state.showNavigation,
+        'navigation-open': showNavigation,
         'is-electron': isElectron(),
         'is-macos': isMacApp,
       });
@@ -481,7 +481,7 @@ export const App = connect(
               )}
               <AppLayout
                 isFocusMode={settings.focusModeEnabled}
-                isNavigationOpen={state.showNavigation}
+                isNavigationOpen={showNavigation}
                 isNoteOpen={this.state.isNoteOpen}
                 isNoteInfoOpen={showNoteInfo}
                 isSmallScreen={isSmallScreen}

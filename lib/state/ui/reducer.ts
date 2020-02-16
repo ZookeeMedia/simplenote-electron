@@ -57,6 +57,7 @@ const visiblePanes: A.Reducer<string[]> = (
   action
 ) => {
   if ('TAG_DRAWER_TOGGLE' === action.type) {
+    // @todo
     return action.show
       ? union(state, ['tagDrawer'])
       : difference(state, ['tagDrawer']);
@@ -70,8 +71,33 @@ const showNoteInfo: A.Reducer<boolean> = (state = false, action) => {
     case 'NOTE_INFO_TOGGLE':
       return !state;
 
-    case 'App.toggleNavigation':
+    case 'NAVIGATION_TOGGLE':
       return false;
+
+    default:
+      return state;
+  }
+};
+
+// @todo
+// const editingTags: A.Reducer<boolean> = (state = false, action) => {
+//   switch (action.type) {
+//     case 'NAVIGATION_TOGGLE':
+//       return false;
+//     default:
+//       return state;
+//   }
+// };
+
+const showNavigation: A.Reducer<boolean> = (state = false, action) => {
+  console.log(action);
+  switch (action.type) {
+    case 'NAVIGATION_TOGGLE':
+      return !state;
+
+    // @todo -- should be implemented with editingTags actually
+    // case 'App.editingTags':
+    // return false;
 
     default:
       return state;
@@ -105,6 +131,7 @@ export default combineReducers({
   listTitle,
   note,
   searchQuery,
+  showNavigation,
   showNoteInfo,
   simperiumConnected,
   unsyncedNoteIds,

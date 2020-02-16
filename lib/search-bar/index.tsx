@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React, { FunctionComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 /**
@@ -14,16 +14,18 @@ import NewNoteIcon from '../icons/new-note';
 import SearchField from '../search-field';
 import MenuIcon from '../icons/menu';
 import { withoutTags } from '../utils/filter-notes';
-import { createNote, search } from '../state/ui/actions';
+import { createNote, search, toggleNavigation } from '../state/ui/actions';
 
 import * as S from '../state';
+import * as T from '../types';
 
-const { newNote, toggleNavigation } = appState.actionCreators;
+const { newNote } = appState.actionCreators;
 const { recordEvent } = tracks;
 
 type OwnProps = {
   onNewNote: Function;
-  onToggleNavigation: Function;
+  noteBucket: object;
+  onNoteOpened: Function;
 };
 
 type StateProps = {
@@ -31,16 +33,23 @@ type StateProps = {
   showTrash: boolean;
 };
 
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  toggleNavigation: () => any;
+};
 
-export const SearchBar: FunctionComponent<Props> = ({
+type Props = OwnProps & StateProps & DispatchProps;
+
+export const SearchBar: Component<Props> = ({
   onNewNote,
-  onToggleNavigation,
   searchQuery,
   showTrash,
 }) => (
   <div className="search-bar theme-color-border">
-    <IconButton icon={<MenuIcon />} onClick={onToggleNavigation} title="Menu" />
+    <IconButton
+      icon={<MenuIcon />}
+      onClick={() => toggleNavigation()}
+      title="Menu"
+    />
     <SearchField />
     <IconButton
       disabled={showTrash}
@@ -59,7 +68,10 @@ const mapStateToProps: S.MapState<StateProps> = ({
   showTrash,
 });
 
-const mapDispatchToProps = (dispatch, { noteBucket, onNoteOpened }) => ({
+const mapDispatchToProps: S.MapDispatch<DispatchProps, OwnProps> = (
+  dispatch,
+  { noteBucket, onNoteOpened }
+) => ({
   onNewNote: (content: string) => {
     dispatch(createNote());
     dispatch(search(''));
@@ -67,7 +79,10 @@ const mapDispatchToProps = (dispatch, { noteBucket, onNoteOpened }) => ({
     onNoteOpened();
     recordEvent('list_note_created');
   },
-  onToggleNavigation: () => dispatch(toggleNavigation()),
+  toggleNavigation: () => {
+    console.log('called');
+    dispatch(toggleNavigation());
+  },
 });
 
 SearchBar.displayName = 'SearchBar';

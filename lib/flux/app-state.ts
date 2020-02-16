@@ -38,7 +38,6 @@ const initialState: AppState = {
   tags: [],
   revision: null,
   showTrash: false,
-  showNavigation: false,
   isViewingRevisions: false,
   editingTags: false,
   dialogs: [],
@@ -59,19 +58,6 @@ export const actionMap = new ActionMap({
       });
     },
 
-    toggleNavigation(state: AppState) {
-      if (state.showNavigation) {
-        return update(state, {
-          showNavigation: { $set: false },
-          editingTags: { $set: false },
-        });
-      }
-
-      return update(state, {
-        showNavigation: { $set: true },
-      });
-    },
-
     showAllNotesAndSelectFirst: {
       creator() {
         return (dispatch, getState) => {
@@ -87,7 +73,7 @@ export const actionMap = new ActionMap({
 
     showAllNotes(state: AppState) {
       return update(state, {
-        showNavigation: { $set: false },
+        // showNavigation: { $set: false }, // @todo
         editingTags: { $set: false },
         showTrash: { $set: false },
         tag: { $set: null },
@@ -97,7 +83,7 @@ export const actionMap = new ActionMap({
 
     selectTrash(state: AppState) {
       return update(state, {
-        showNavigation: { $set: false },
+        // showNavigation: { $set: false }, // @todo
         editingTags: { $set: false },
         showTrash: { $set: true },
         tag: { $set: null },
@@ -120,7 +106,7 @@ export const actionMap = new ActionMap({
 
     selectTag(state: AppState, { tag }: { tag: T.TagEntity }) {
       return update(state, {
-        showNavigation: { $set: false },
+        // showNavigation: { $set: false }, // @todo
         editingTags: { $set: false },
         showTrash: { $set: false },
         tag: { $set: tag },
@@ -152,7 +138,7 @@ export const actionMap = new ActionMap({
       };
 
       if (type === 'Settings') {
-        updateCommands.showNavigation = { $set: false };
+        // updateCommands.showNavigation = { $set: false }; //@todo
       }
 
       return update(state, updateCommands);
