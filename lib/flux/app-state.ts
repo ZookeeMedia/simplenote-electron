@@ -73,7 +73,6 @@ export const actionMap = new ActionMap({
 
     showAllNotes(state: AppState) {
       return update(state, {
-        // showNavigation: { $set: false }, // @todo
         editingTags: { $set: false },
         showTrash: { $set: false },
         tag: { $set: null },
@@ -83,7 +82,6 @@ export const actionMap = new ActionMap({
 
     selectTrash(state: AppState) {
       return update(state, {
-        // showNavigation: { $set: false }, // @todo
         editingTags: { $set: false },
         showTrash: { $set: true },
         tag: { $set: null },
@@ -106,7 +104,6 @@ export const actionMap = new ActionMap({
 
     selectTag(state: AppState, { tag }: { tag: T.TagEntity }) {
       return update(state, {
-        // showNavigation: { $set: false }, // @todo
         editingTags: { $set: false },
         showTrash: { $set: false },
         tag: { $set: tag },

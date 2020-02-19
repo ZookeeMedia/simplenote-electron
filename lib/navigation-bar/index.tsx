@@ -19,8 +19,6 @@ import { toggleNavigation } from '../state/ui/actions';
 import * as S from '../state';
 import * as T from '../types';
 
-type OwnProps = {};
-
 type StateProps = {
   showNavigation: boolean;
 };
@@ -30,7 +28,7 @@ type DispatchProps = {
   toggleNavigation: Function;
 };
 
-type Props = OwnProps & StateProps & DispatchProps;
+type Props = StateProps & DispatchProps;
 
 export class NavigationBar extends Component<Props> {
   static displayName = 'NavigationBar';
@@ -157,7 +155,7 @@ const {
   showDialog,
 } = appState.actionCreators;
 
-const mapDispatchToProps: S.MapDispatch<DispatchProps, OwnProps> = {
+const mapDispatchToProps: S.MapDispatch<DispatchProps> = {
   onAbout: () => showDialog({ dialog: DialogTypes.ABOUT }),
   onOutsideClick: toggleNavigation,
   onShowAllNotes: showAllNotesAndSelectFirst,

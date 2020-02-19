@@ -43,13 +43,10 @@ export const SearchBar: Component<Props> = ({
   onNewNote,
   searchQuery,
   showTrash,
+  toggleNavigation,
 }) => (
   <div className="search-bar theme-color-border">
-    <IconButton
-      icon={<MenuIcon />}
-      onClick={() => toggleNavigation()}
-      title="Menu"
-    />
+    <IconButton icon={<MenuIcon />} onClick={toggleNavigation} title="Menu" />
     <SearchField />
     <IconButton
       disabled={showTrash}
@@ -80,7 +77,6 @@ const mapDispatchToProps: S.MapDispatch<DispatchProps, OwnProps> = (
     recordEvent('list_note_created');
   },
   toggleNavigation: () => {
-    console.log('called');
     dispatch(toggleNavigation());
   },
 });

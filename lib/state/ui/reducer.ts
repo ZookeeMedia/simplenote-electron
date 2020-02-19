@@ -79,7 +79,10 @@ const showNoteInfo: A.Reducer<boolean> = (state = false, action) => {
   }
 };
 
-// @todo
+// @todo -- originally the navigation toggle set editingTags = false
+// not sure what to do here since we don't have editingTags
+// in the reducers yet
+
 // const editingTags: A.Reducer<boolean> = (state = false, action) => {
 //   switch (action.type) {
 //     case 'NAVIGATION_TOGGLE':
@@ -90,14 +93,14 @@ const showNoteInfo: A.Reducer<boolean> = (state = false, action) => {
 // };
 
 const showNavigation: A.Reducer<boolean> = (state = false, action) => {
-  console.log(action);
   switch (action.type) {
     case 'NAVIGATION_TOGGLE':
       return !state;
 
-    // @todo -- should be implemented with editingTags actually
-    // case 'App.editingTags':
-    // return false;
+    case 'App.selectTag':
+    case 'App.selectTrash':
+    case 'App.showAllNotes':
+      return false;
 
     default:
       return state;

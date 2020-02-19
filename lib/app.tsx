@@ -33,6 +33,7 @@ import {
 import {
   createNote,
   setUnsyncedNoteIds,
+  toggleNavigation,
   toggleSimperiumConnectionStatus,
 } from './state/ui/actions';
 
@@ -100,7 +101,7 @@ const mapDispatchToProps: S.MapDispatch<
     toggleSortOrder: thenReloadNotes(settingsActions.toggleSortOrder),
     toggleSortTagsAlpha: thenReloadTags(settingsActions.toggleSortTagsAlpha),
     createNote: () => dispatch(createNote()),
-    openTagList: () => dispatch(actionCreators.toggleNavigation()),
+    openTagList: () => dispatch(toggleNavigation()),
     resetAuth: () => dispatch(reduxActions.auth.reset()),
     selectNote: (note: T.NoteEntity) => dispatch(actions.ui.selectNote(note)),
     setAuthorized: () => dispatch(reduxActions.auth.setAuthorized()),
@@ -248,7 +249,7 @@ export const App = connect(
       if (
         cmdOrCtrl &&
         't' === key.toLowerCase() &&
-        !this.state.showNavigation
+        !this.props.showNavigation
       ) {
         this.props.openTagList();
 
@@ -476,9 +477,7 @@ export const App = connect(
           {isDevConfig && <DevBadge />}
           {isAuthorized ? (
             <div className={mainClasses}>
-              {state.showNavigation && (
-                <NavigationBar isElectron={isElectron()} />
-              )}
+              {showNavigation && <NavigationBar isElectron={isElectron()} />}
               <AppLayout
                 isFocusMode={settings.focusModeEnabled}
                 isNavigationOpen={showNavigation}
